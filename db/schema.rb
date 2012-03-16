@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120315071713) do
+ActiveRecord::Schema.define(:version => 20120316082702) do
 
   create_table "answer_votes", :force => true do |t|
     t.integer  "user_id"
@@ -36,6 +36,23 @@ ActiveRecord::Schema.define(:version => 20120315071713) do
     t.text     "content"
     t.integer  "reply_comment_id"
     t.integer  "reply_comment_user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "homework_assigns", :force => true do |t|
+    t.integer  "creator_id"
+    t.integer  "homework_id"
+    t.text     "content"
+    t.boolean  "is_submit",   :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "homeworks", :force => true do |t|
+    t.integer  "creator_id"
+    t.string   "title"
+    t.text     "content"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -84,6 +101,22 @@ ActiveRecord::Schema.define(:version => 20120315071713) do
     t.boolean  "receiver_read", :default => false
     t.boolean  "sender_hide",   :default => false
     t.boolean  "receiver_hide", :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "students", :force => true do |t|
+    t.string   "real_name",  :null => false
+    t.string   "sid"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "teachers", :force => true do |t|
+    t.string   "real_name",  :null => false
+    t.string   "tid"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

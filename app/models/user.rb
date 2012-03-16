@@ -39,5 +39,6 @@ class User < ActiveRecord::Base
   
   # ----------- 以下是方法扩充
   include OnlineRecord::UserMethods
+  include Homework::UserMethods
 
 end

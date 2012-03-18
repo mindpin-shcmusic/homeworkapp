@@ -7,5 +7,6 @@
 #   Mayor.create(:name => 'Emanuel', :city => cities.first)
 
 
-# ActiveRecord::Base.connection.execute("TRUNCATE TABLE notifications")
+ActiveRecord::Base.connection.execute("TRUNCATE TABLE homeworks")
+ActiveRecord::Base.connection.execute("TRUNCATE TABLE homework_assigns")
 

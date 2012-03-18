@@ -1,6 +1,10 @@
+.page-new
+  = flash.now[:error]
+
 = form_for @homework, :url => { :action => "create" }, :html => {:class => "nifty_form"} do |f|
   = f.text_field :title
   = f.text_area :content, :size => "60x12"
   .item
-    %input{:type=>'checkbox', :value => '222', :name=>'homework[homework_assigns_attributes][][creator_id]'}
+    %input{:type=>'checkbox', :value => '1', :name=>'homework[homework_assigns_attributes][][creator_id]'} freesu
+    %input{:type=>'checkbox', :value => '2', :name=>'homework[homework_assigns_attributes][][creator_id]'} luffy
   = f.submit "布置作业"

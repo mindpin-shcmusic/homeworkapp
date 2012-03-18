@@ -18,6 +18,8 @@ class HomeworksController < ApplicationController
 
   def show
     @homework = Homework.find(params[:id])
+    @unsubmitted_students = @homework.unsubmitted_students
+    @submitted_students = @homework.submitted_students
   end
 
 end

@@ -7,6 +7,22 @@ class Homework < ActiveRecord::Base
   # --- 校验方法
   validates :title, :content, :presence => true
   
+  # 尚未提交作业
+  def unsubmitted_students
+    HomeworkAssign.find(
+      :all,
+      :conditions => {:is_submit => false, :homework_id => self.id}
+    ).map{|x| x.student }
+  end
+  
+  # 已提交作业
+  def submitted_students
+    HomeworkAssign.find(
+      :all,
+      :conditions => {:is_submit => true, :homework_id => self.id}
+    ).map{|x| x.student }
+  end
+  
   # --- 给其他类扩展的方法
   module UserMethods
     def self.included(base)

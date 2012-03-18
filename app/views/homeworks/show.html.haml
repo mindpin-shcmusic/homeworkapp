@@ -6,3 +6,17 @@
 
 %div 作业内容
 %p= @homework.content
+
+
+- if @submitted_students.count > 0
+  %p 已交作业学生
+  %ul
+  - @submitted_students.each do |s|
+    %li= s.name
+    %p= s.content
+  
+  
+%p 未交作业学生
+%ul
+- @unsubmitted_students.each do |s|
+  %li= s.name

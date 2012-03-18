@@ -5,4 +5,17 @@ class HomeworkAssign < ActiveRecord::Base
   
   # --- 校验方法
   validates :creator_id, :presence => true
+  
+  # --- 给其他类扩展的方法
+  module UserMethods
+    def self.included(base)
+      base.has_many :homework_assigns, :foreign_key => :creator_id
+      
+      base.send(:include, InstanceMethods)
+    end
+    
+    module InstanceMethods
+      # nothing ...
+    end
+  end
 end

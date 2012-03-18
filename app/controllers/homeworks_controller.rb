@@ -13,6 +13,7 @@ class HomeworksController < ApplicationController
   end
 
   def index
+    @homeworks = current_user.homeworks.all
   end
 
   def show

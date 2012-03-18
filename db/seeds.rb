@@ -9,4 +9,11 @@
 
 ActiveRecord::Base.connection.execute("TRUNCATE TABLE homeworks")
 ActiveRecord::Base.connection.execute("TRUNCATE TABLE homework_assigns")
+ActiveRecord::Base.connection.execute("TRUNCATE TABLE teachers")
+ActiveRecord::Base.connection.execute("TRUNCATE TABLE students")
 
+Teacher.create(:real_name => 'Test teacher', :user_id => 1, :tid => '666666')
+
+
+Student.create(:real_name => 'Test student1', :user_id => 2, :sid => '111111')
+Student.create(:real_name => 'Test student2', :user_id => 3, :sid => '222222')

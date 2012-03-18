@@ -4,8 +4,13 @@
   = flash.now[:error]
 
 = form_for @homework, :url => { :action => "create" }, :html => {:class => "nifty_form"} do |f|
+  %p 作业标题
   = f.text_field :title
+  
+  %p 作业内容
   = f.text_area :content, :size => "60x12"
+  
+  %p 选择分配学生
   .item
     %input{:type=>'checkbox', :value => '1', :name=>'homework[homework_assigns_attributes][][creator_id]'} freesu
     %input{:type=>'checkbox', :value => '2', :name=>'homework[homework_assigns_attributes][][creator_id]'} luffy

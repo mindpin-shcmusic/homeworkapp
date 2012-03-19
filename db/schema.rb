@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120316082702) do
+ActiveRecord::Schema.define(:version => 20120319100746) do
 
   create_table "answer_votes", :force => true do |t|
     t.integer  "user_id"
@@ -44,9 +44,10 @@ ActiveRecord::Schema.define(:version => 20120316082702) do
     t.integer  "creator_id"
     t.integer  "homework_id"
     t.text     "content"
-    t.boolean  "is_submit",   :default => false
+    t.boolean  "is_submit",    :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "submitted_at"
   end
 
   create_table "homeworks", :force => true do |t|

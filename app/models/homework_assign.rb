@@ -4,7 +4,7 @@ class HomeworkAssign < ActiveRecord::Base
   belongs_to :creator, :class_name => 'User', :foreign_key => 'creator_id'
   
   # --- 校验方法
-  validates :student, :presence => true
+  validates :creator, :presence => true
   
   # --- 给其他类扩展的方法
   module UserMethods

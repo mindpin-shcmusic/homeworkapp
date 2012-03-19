@@ -13,6 +13,7 @@ class StudentController < ApplicationController
     @homework_assign = current_user.homework_assigns.find_by_homework_id(params[:homework_assign][:homework_id])
     @homework_assign.content = params[:homework_assign][:content]
     @homework_assign.is_submit = true
+    @homework_assign.submitted_at = DateTime.now
     return redirect_to :back if @homework_assign.save
 
     error = @homework_assign.errors.first

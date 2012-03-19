@@ -4,9 +4,9 @@ class Homework < ActiveRecord::Base
   has_many :homework_assigns
   
   # 未提交作业学生
-  has_many :unsubmitted_students, :through => :homework_assigns, :source => :user, :conditions => ['is_submit = ?', false]
+  has_many :unsubmitted_students, :through => :homework_assigns, :source => :creator, :conditions => ['is_submit = ?', false]
   # 已提交作业学生
-  has_many :submitted_students, :through => :homework_assigns, :source => :user, :conditions => ['is_submit = ?', true]
+  has_many :submitted_students, :through => :homework_assigns, :source => :creator, :conditions => ['is_submit = ?', true]
   
   accepts_nested_attributes_for :homework_assigns
   

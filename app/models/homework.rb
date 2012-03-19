@@ -1,6 +1,6 @@
 class Homework < ActiveRecord::Base
   # --- 模型关联
-  belongs_to :user, :class_name => 'User', :foreign_key => 'creator_id'
+  belongs_to :creator, :class_name => 'User', :foreign_key => 'creator_id'
   has_many :homework_assigns
   
   # 未提交作业学生

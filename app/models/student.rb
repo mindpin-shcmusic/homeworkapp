@@ -9,13 +9,15 @@ class Student < ActiveRecord::Base
   # --- 给其他类扩展的方法
   module UserMethods
     def self.included(base)
-      base.has_many :students, :foreign_key => :user_id
+      base.has_one :student, :foreign_key => :user_id
       
       base.send(:include, InstanceMethods)
     end
     
     module InstanceMethods
-      # nothing ...
+      def is_student?
+        return true unless self.student.nil
+      end
     end
   end
 end

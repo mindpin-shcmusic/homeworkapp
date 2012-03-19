@@ -1,4 +1,11 @@
 class HomeworksController < ApplicationController
+  before_filter :pre_load
+  
+  def pre_load
+    return redirect_to '/' unless current_user.is_teacher?
+  end
+  
+  
   def create
     @homework = current_user.homeworks.build(params[:homework])
     return redirect_to @homework if @homework.save

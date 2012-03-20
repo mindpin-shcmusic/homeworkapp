@@ -12,6 +12,22 @@
 
 ActiveRecord::Schema.define(:version => 20120319100746) do
 
+  create_table "activities", :force => true do |t|
+    t.string   "title"
+    t.text     "content"
+    t.integer  "date"
+    t.integer  "creator_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "activity_assigns", :force => true do |t|
+    t.integer  "activity_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "answer_votes", :force => true do |t|
     t.integer  "user_id"
     t.integer  "answer_id"
@@ -107,7 +123,7 @@ ActiveRecord::Schema.define(:version => 20120319100746) do
   end
 
   create_table "students", :force => true do |t|
-    t.string   "real_name",  :null => false
+    t.string   "real_name",  :default => "", :null => false
     t.string   "sid"
     t.integer  "user_id"
     t.datetime "created_at"
@@ -115,9 +131,18 @@ ActiveRecord::Schema.define(:version => 20120319100746) do
   end
 
   create_table "teachers", :force => true do |t|
-    t.string   "real_name",  :null => false
+    t.string   "real_name",  :default => "", :null => false
     t.string   "tid"
     t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "todos", :force => true do |t|
+    t.integer  "creator_id"
+    t.text     "content"
+    t.integer  "date"
+    t.boolean  "completed",  :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

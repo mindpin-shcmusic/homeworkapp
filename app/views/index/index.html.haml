@@ -12,6 +12,9 @@
     判断当前是否是登录状态
 
 .p
-  =link_to '作业列表', homeworks_path
+  -if current_user.is_teacher?
+    =link_to '我布置的作业列表', "/homeworks"
+  -else
+    =link_to '我要完成的作业列表', "/student"
 .page-to-logout
   =link_to "退出登录","/logout"

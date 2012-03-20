@@ -13,7 +13,7 @@
   %ul
   - @submitted_students.each do |s|
     %li= s.name
-    %p= s.content
+    %p= s.homework_assigns.find_by_homework_id(@homework.id).content
   
   
 %p 未交作业学生

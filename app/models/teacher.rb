@@ -1,7 +1,6 @@
 class Teacher < ActiveRecord::Base
   # --- 模型关联
   belongs_to :user
-  has_many :homeworks, :through => :homework_assigns
   
   # --- 校验部分
   validates :real_name, :presence => true

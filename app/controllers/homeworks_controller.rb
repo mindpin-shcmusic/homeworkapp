@@ -12,11 +12,17 @@ class HomeworksController < ApplicationController
 
     error = @homework.errors.first
 	  flash.now[:error] = "#{error[0]} #{error[1]}"
-	  render :action => :new
+	  redirect_to '/homeworks/new'
   end
 
   def new
     @homework = Homework.new
+    
+    # 所有课程
+    @courses = Course.all
+    
+    # 学生列表
+    @students = Student.all
   end
 
   def index

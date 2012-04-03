@@ -1,23 +1,37 @@
 class Teacher < ActiveRecord::Base
-  # --- 模型关联
   belongs_to :user
   
-  # --- 校验部分
   validates :real_name, :presence => true
   validates :tid, :uniqueness => { :if => Proc.new { |teacher| !teacher.tid.blank? } }
   
-  # --- 给其他类扩展的方法
   module UserMethods
     def self.included(base)
-      base.has_one :teacher, :foreign_key => :user_id
-      
-      base.send(:include, InstanceMethods)
+      base.has_one :teacher
+      base.send(:include,InstanceMethod)
+      base.send(:extend,ClassMethod)
+      base.scope  :student_role,
+        :joins=>"inner join students on students.user_id = users.id"
+      base.scope  :teacher_role,
+        :joins=>"inner join teachers on teachers.user_id = users.id"
     end
     
-    module InstanceMethods
+    module InstanceMethod
       def is_teacher?
-        return true unless self.teacher.nil?
+        !self.teacher.blank?
+      end
+      
+      def real_name
+        self.teacher.real_name if is_teacher?
+        self.student.real_name if is_student?
+        self.name
       end
     end
+    
+    module ClassMethod
+      def no_role
+        self.all-self.student_role-self.teacher_role
+      end
+    end
+    
   end
 end

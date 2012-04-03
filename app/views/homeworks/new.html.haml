@@ -10,8 +10,16 @@
   %p 作业内容
   = f.text_area :content, :size => "60x12"
   
+  %p 隶属课程
+  = f.select :course_id, @courses.collect {|item| [item.name, item.id]}
+  
+  %p 截止日期
+  = f.text_field :deadline
+  
   %p 选择分配学生
   .item
-    %input{:type=>'checkbox', :value => '2', :name=>'homework[homework_assigns_attributes][][creator_id]'} aaa
-    %input{:type=>'checkbox', :value => '3', :name=>'homework[homework_assigns_attributes][][creator_id]'} bbb
+  -@students.each do |student|
+    %input{:type=>'checkbox', :value => student.user_id, :name=>'homework[homework_assigns_attributes][][creator_id]'} #{student.real_name}
+  
+  
   = f.submit "布置作业"

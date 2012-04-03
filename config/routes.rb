@@ -1,5 +1,12 @@
 Quora::Application.routes.draw do
-
+  
+  resources :homeworks do
+    collection do
+    end
+    
+    member do
+    end
+  end
   resources :homeworks, :student
 
   # -- 用户登录认证相关 --

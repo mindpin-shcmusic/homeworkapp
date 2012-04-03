@@ -20,6 +20,16 @@
   .item
   -@students.each do |student|
     %input{:type=>'checkbox', :value => student.user_id, :name=>'homework[homework_assigns_attributes][][creator_id]'} #{student.real_name}
-  
+    
+  %div
+    作业提交物
+    %p
+      %input{:type=>'text', :size=>30, :name=>'homework[homework_student_attachements_attributes][][title]'}
+    %p
+      %input{:type=>'text', :size=>30, :name=>'homework[homework_student_attachements_attributes][][title]'}
   
   = f.submit "布置作业"
+  
+  
+
+     

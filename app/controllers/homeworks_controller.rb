@@ -14,9 +14,11 @@ class HomeworksController < ApplicationController
 	  flash.now[:error] = "#{error[0]} #{error[1]}"
 	  redirect_to '/homeworks/new'
   end
+  
 
   def new
     @homework = Homework.new
+    @homework_student_attachement = HomeworkStudentAttachement.new
     
     # 所有课程
     @courses = Course.all

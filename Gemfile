@@ -8,6 +8,10 @@ gem 'therubyracer'
 
 gem 'haml'
 
+# paperclip
+gem 'paperclip', '2.4.5'
+gem 'paperclip-meta'
+
 group :assets do
   gem 'sass-rails',   '~> 3.1.4'
   gem 'coffee-rails', '~> 3.1.1'

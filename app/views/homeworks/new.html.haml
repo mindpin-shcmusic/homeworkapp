@@ -1,9 +1,18 @@
+:javascript
+  $(function() {
+    $("#dropbox, #multiple").html5Uploader({
+      name: "homework_teacher_attachement[attachement]",
+      postUrl: '/homeworks/create_teacher_attachement',
+    });
+  });
+  
+
 %p= link_to '作业列表', homeworks_path
 
 .page-new
   = flash.now[:error]
 
-= form_for @homework, :url => { :action => "create" }, :html => {:class => "assign_form"} do |f|
+= form_for @homework, :url => { :action => "create" }, :html => {:class => "assign_form", :multipart => true} do |f|
   %p 作业标题
   = f.text_field :title
   
@@ -21,6 +30,12 @@
   -@students.each do |student|
     %input{:type=>'checkbox', :value => student.user_id, :name=>'homework[homework_assigns_attributes][][creator_id]'} #{student.real_name}
     
+  
+  %p 作业附件
+  #dropbox
+  %input{:id => 'attachement1', :name => "attachements[]", :type => "hidden"}/
+  %input#multiple{:multiple => "", :type => "file", :name => "homework_teacher_attachement[attachement]"}/
+  
   %div
     作业提交物
     %p
@@ -30,9 +45,6 @@
   
   = f.submit "布置作业"
   
-  
-= form_for @homework, :url => { :action => "create" }, :html => { :multipart => true } do |form|
-  = form.file_field :avatar
-  
+
 
      

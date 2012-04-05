@@ -2,6 +2,7 @@ Quora::Application.routes.draw do
   
   resources :homeworks do
     collection do
+      post :create_teacher_attachement
     end
     
     member do

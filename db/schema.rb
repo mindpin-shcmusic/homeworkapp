@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120405021127) do
+ActiveRecord::Schema.define(:version => 20120405031558) do
 
   create_table "answer_votes", :force => true do |t|
     t.integer  "user_id"
@@ -72,7 +72,6 @@ ActiveRecord::Schema.define(:version => 20120405021127) do
   create_table "homework_teacher_attachements", :force => true do |t|
     t.integer  "creator_id"
     t.integer  "homework_id"
-    t.string   "attachement"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "attachement_file_name"

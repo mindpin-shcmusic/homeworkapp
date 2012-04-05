@@ -1,6 +1,6 @@
 class HomeworksController < ApplicationController
   before_filter :pre_load
-  
+
   def pre_load
     return redirect_to '/' unless current_user.is_teacher?
   end
@@ -8,11 +8,23 @@ class HomeworksController < ApplicationController
   
   def create
     @homework = current_user.homeworks.build(params[:homework])
-    return redirect_to @homework if @homework.save
-
+    if @homework.save
+      homework_teacher_attachement = HomeworkTeacherAttachement.find(session[:attachement_id])
+      homework_teacher_attachement.homework_id = @homework.id
+      homework_teacher_attachement.creator_id = current_user.id
+      homework_teacher_attachement.save
+      return redirect_to @homework
+    end
+    
     error = @homework.errors.first
 	  flash.now[:error] = "#{error[0]} #{error[1]}"
 	  redirect_to '/homeworks/new'
+  end
+  
+  def create_teacher_attachement
+    @homework_teacher_attachement = HomeworkTeacherAttachement.create( params[:homework_teacher_attachement] )
+    session[:attachement_id] = @homework_teacher_attachement.id
+    render :text => @homework_teacher_attachement.id
   end
   
 

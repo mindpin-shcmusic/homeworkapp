@@ -1,6 +1,13 @@
 class StudentController < ApplicationController
   def index
-    @homeworks = current_user.homework_assigns
+    if params[:status] == 'deadline'
+      @homeworks = current_user.deadline_homeworks
+    elsif params[:status] == 'undeadline'
+      @homeworks = current_user.undeadline_homeworks
+    else
+      @homeworks = current_user.homework_assigns
+    end
+    
   end
 
   def show

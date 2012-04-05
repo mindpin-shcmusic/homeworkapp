@@ -11,7 +11,7 @@ class HomeworkAssign < ActiveRecord::Base
     def self.included(base)
       base.has_many :homework_assigns, :foreign_key => :creator_id
       base.has_many :undeadline_homeworks, :through => :homeworks, :class_name => 'HomeworkAssign', :source => :homework_assigns, :conditions => ['deadline > ?', Time.new.strftime("%Y-%m-%d %H:%M:%S")]
-      base.has_many :deadline_homeworks, :through => :homeworks, :class_name => 'HomeworkAssign', :source => :homework_assigns, :conditions => ['deadline <= ?', Time.now]
+      base.has_many :deadline_homeworks,:through=>:homework_assigns,:source=>:homework, :conditions => ['homeworks.deadline <= ?', Time.now] 
       
       base.send(:include, InstanceMethods)
     end

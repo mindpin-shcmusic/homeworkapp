@@ -7,6 +7,14 @@
 %div 作业内容
 %p= @homework.content
 
+%div 截止时间
+%p
+  = @homework.deadline.strftime("%Y-%m-%d %H:%M:%S")
+  - if Time.now < @homework.deadline
+    = '未过期'
+  - else
+    = '已过期'
+
 
 - if @submitted_students.count > 0
   %p 已交作业学生

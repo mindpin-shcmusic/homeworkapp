@@ -3,4 +3,4 @@
   %a{:href => '/student?status=deadline'} 已过期
 
 - @homeworks.each do |h|
-  %p= link_to h.homework.title, student_path(h.homework)
+  %p= link_to h.title, student_path(h)

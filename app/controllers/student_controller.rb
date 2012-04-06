@@ -14,6 +14,14 @@ class StudentController < ApplicationController
     @homework = Homework.find(params[:id])
     @student = current_user.homework_assigns.find_by_homework_id(params[:id])
     @homework_assign = HomeworkAssign.new
+    
+    # 生成老师上传的附件压缩包
+    zipfile_name = "/web/2012/homework_teacher_attachements/homework_teacher#{current_user.id}_#{@homework.id}.zip"
+    Zip::ZipFile.open(zipfile_name, Zip::ZipFile::CREATE) do |zipfile|
+      @homework.homework_teacher_attachements.each do |file|
+        zipfile.add(file.attachement_file_name, file.attachement.path)
+      end
+    end
   end
 
   def create

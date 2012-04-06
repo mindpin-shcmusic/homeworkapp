@@ -20,7 +20,11 @@ class Homework < ActiveRecord::Base
   module UserMethods
     def self.included(base)
       base.has_many :homeworks, :foreign_key => :creator_id
+      
+      # 老师未过期作业
       base.has_many :undeadline_homeworks, :class_name => 'Homework', :foreign_key => :creator_id, :conditions => ['deadline > ?', Time.new.strftime("%Y-%m-%d %H:%M:%S")]
+      
+      # 老师已过期作业
       base.has_many :deadline_homeworks, :class_name => 'Homework', :foreign_key => :creator_id, :conditions => ['deadline <= ?', Time.now]
       
       base.send(:include, InstanceMethods)

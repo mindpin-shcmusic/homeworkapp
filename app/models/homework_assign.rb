@@ -11,10 +11,15 @@ class HomeworkAssign < ActiveRecord::Base
     def self.included(base)
       base.has_many :homework_assigns,:foreign_key=>"creator_id"
       
+      # 学生所有被分配作业
       base.has_many :assigned_homeworks, :through => :homework_assigns, :source => :homework
-      base.has_many :deadline_homeworks,:through=>:homework_assigns, :source=>:homework, :conditions => ['homeworks.deadline <= ?', Time.now]
-      base.has_many :undeadline_homeworks,:through=>:homework_assigns, :source=>:homework, :conditions => ['homeworks.deadline > ?', Time.now] 
       
+      # 学生未过期作业
+      base.has_many :undeadline_homeworks,:through=>:homework_assigns, :source=>:homework, :conditions => ['homeworks.deadline > ?', Time.now] 
+
+      # 学生已过期作业
+      base.has_many :deadline_homeworks,:through=>:homework_assigns, :source=>:homework, :conditions => ['homeworks.deadline <= ?', Time.now]
+
       base.send(:include, InstanceMethods)
     end
     

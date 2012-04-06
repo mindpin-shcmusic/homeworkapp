@@ -3,8 +3,16 @@
 %div 作业标题
 %p= @homework.title
 
+%div 截止时间
+%p= @homework.deadline.strftime("%Y-%m-%d %H:%M:%S")
+
+%p
+  提交物
+
+
 %div 作业内容
 %p= @homework.content
+
 
 %div 学生提交内容
 %p= @student.content

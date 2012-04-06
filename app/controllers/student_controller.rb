@@ -33,15 +33,33 @@ class StudentController < ApplicationController
     # attachement_id 值由页面ajax url 参数传进来
     params[:homework_student_upload][:attachement_id] = params[:attachement_id]
     params[:homework_student_upload][:creator_id] = current_user.id
-    HomeworkStudentUpload.create( params[:homework_student_upload] )
+    @homework_student_upload = HomeworkStudentUpload.create( params[:homework_student_upload] )
+
+    # 当前作业ID, 用于生成 zip 文件名
+    homework_id = @homework_student_upload.homework_student_attachement.homework.id
+    zipfile_name = "/web/2012/homework_student_uploads/homework_student#{current_user.id}_#{homework_id}.zip"
+    Zip::ZipFile.open(zipfile_name, Zip::ZipFile::CREATE) do |zipfile|
+      zipfile.add(@homework_student_upload.attachement_file_name, @homework_student_upload.attachement.path)
+    end
+    
     render :nothing => true
   end
   
   # 学生重新上传作业附件
   def upload_homework_attachement_again
     @homework_student_upload = HomeworkStudentUpload.find_current(current_user.id, params[:attachement_id])
+    old_file = @homework_student_upload.attachement_file_name;
     @homework_student_upload.attachement = params[:homework_student_upload][:attachement]
     @homework_student_upload.save
+    
+    # 当前作业ID, 用于生成 zip 文件名
+    homework_id = @homework_student_upload.homework_student_attachement.homework.id
+    zipfile_name = "/web/2012/homework_student_uploads/homework_student#{current_user.id}_#{homework_id}.zip"
+    Zip::ZipFile.open(zipfile_name, Zip::ZipFile::CREATE) do |zipfile|
+      zipfile.remove(old_file) if zipfile.find_entry(old_file)
+      zipfile.add(@homework_student_upload.attachement_file_name, @homework_student_upload.attachement.path)
+    end
+    
     render :nothing => true
   end
 

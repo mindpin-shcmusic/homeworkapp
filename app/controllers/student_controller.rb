@@ -5,7 +5,7 @@ class StudentController < ApplicationController
     elsif params[:status] == 'undeadline'
       @homeworks = current_user.undeadline_homeworks
     else
-      @homeworks = current_user.homework_assigns
+      @homeworks = current_user.assigned_homeworks
     end
     
   end

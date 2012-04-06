@@ -27,5 +27,18 @@ class StudentController < ApplicationController
 	  flash.now[:error] = "#{error[0]} #{error[1]}"
 	  render :action => :show
   end
+  
+  # 学生上传作业附件
+  def upload_homework_attachement
+    # attachement_id 值由页面ajax url 参数传进来
+    params[:homework_student_upload][:attachement_id] = params[:attachement_id]
+    params[:homework_student_upload][:creator_id] = current_user.id
+    HomeworkStudentUpload.create( params[:homework_student_upload] )
+    render :nothing => true
+  end
+  
+  def upload_homework_attachement_again
+    @homework_student_upload = HomeworkStudentUpload.find(params[:attachement_id])
+  end
 
 end

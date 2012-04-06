@@ -8,6 +8,16 @@ Quora::Application.routes.draw do
     member do
     end
   end
+  
+  resources :student do
+    collection do
+      post :upload_homework_attachement
+      post :upload_homework_attachement_again
+    end
+    
+    member do
+    end
+  end
   resources :homeworks, :student
 
   # -- 用户登录认证相关 --

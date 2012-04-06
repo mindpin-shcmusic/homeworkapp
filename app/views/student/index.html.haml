@@ -7,3 +7,9 @@
   %p
     截止时间
     =h.deadline.strftime("%Y-%m-%d %H:%M:%S")
+  
+  - if h.assigned_by_student(current_user).has_finished
+    = '我已完成'
+  - else
+    = '我未完成'
+  

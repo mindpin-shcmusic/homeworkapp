@@ -19,7 +19,9 @@ class StudentController < ApplicationController
     zipfile_name = "/web/2012/homework_teacher_attachements/homework_teacher#{current_user.id}_#{@homework.id}.zip"
     Zip::ZipFile.open(zipfile_name, Zip::ZipFile::CREATE) do |zipfile|
       @homework.homework_teacher_attachements.each do |file|
-        zipfile.add(file.attachement_file_name, file.attachement.path)
+        unless zipfile.find_entry(file.attachement_file_name)
+          zipfile.add(file.attachement_file_name, file.attachement.path)
+        end
       end
     end
   end
@@ -28,6 +30,7 @@ class StudentController < ApplicationController
     @homework_assign = current_user.homework_assigns.find_by_homework_id(params[:homework_assign][:homework_id])
     @homework_assign.content = params[:homework_assign][:content]
     @homework_assign.is_submit = true
+    @homework_assign.has_finished = true
     @homework_assign.submitted_at = DateTime.now
     return redirect_to :back if @homework_assign.save
 

@@ -22,6 +22,9 @@ class Homework < ActiveRecord::Base
   # --- 校验方法
   validates :title, :content, :presence => true
   
+  def assigned_by_student(student)
+    HomeworkAssign.where(:homework_id => self.id, :creator_id => student.id).first
+  end
   
   # --- 给其他类扩展的方法
   module UserMethods

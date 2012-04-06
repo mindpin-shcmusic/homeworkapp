@@ -10,6 +10,12 @@ class Homework < ActiveRecord::Base
   # 已提交作业学生
   has_many :submitted_students, :through => :homework_assigns, :source => :creator, :conditions => ['is_submit = ?', true]
   
+  # 学生附件
+  has_many :homework_student_attachements
+  
+  # 老师创建作业时上传的附件
+  has_many :homework_teacher_attachements
+  
   accepts_nested_attributes_for :homework_assigns
   
   # --- 校验方法

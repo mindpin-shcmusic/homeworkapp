@@ -7,7 +7,15 @@
 %p= @homework.deadline.strftime("%Y-%m-%d %H:%M:%S")
 
 %p
-  提交物
+  提交物:
+  = @homework.homework_teacher_attachements.count
+  要求附件:
+  - @homework.homework_teacher_attachements.each do |h|
+    = h.attachement_file_name
+
+%div
+  - @homework.homework_student_attachements.each do |h|
+    %p= h.title
 
 
 %div 作业内容

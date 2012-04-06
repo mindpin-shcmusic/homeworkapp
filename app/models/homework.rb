@@ -7,6 +7,7 @@ class Homework < ActiveRecord::Base
   
   # 未提交作业学生
   has_many :unsubmitted_students, :through => :homework_assigns, :source => :creator, :conditions => ['is_submit = ?', false]
+  
   # 已提交作业学生
   has_many :submitted_students, :through => :homework_assigns, :source => :creator, :conditions => ['is_submit = ?', true]
   

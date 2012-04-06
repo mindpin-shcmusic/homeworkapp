@@ -37,8 +37,12 @@ class StudentController < ApplicationController
     render :nothing => true
   end
   
+  # 学生重新上传作业附件
   def upload_homework_attachement_again
-    @homework_student_upload = HomeworkStudentUpload.find(params[:attachement_id])
+    @homework_student_upload = HomeworkStudentUpload.find_current(current_user.id, params[:attachement_id])
+    @homework_student_upload.attachement = params[:homework_student_upload][:attachement]
+    @homework_student_upload.save
+    render :nothing => true
   end
 
 end

@@ -7,7 +7,9 @@ class HomeworkStudentUpload < ActiveRecord::Base
   # 学生提交物路径
   has_attached_file :attachement, :path => "/web/2012/:class/:attachment/:id/:style/:basename.:extension"
   
-  
+  def self.find_current(creator_id, attachement_id)
+    HomeworkStudentUpload.where(:creator_id => creator_id, :attachement_id => attachement_id).first
+  end
            
   # --- 给其他类扩展的方法
   module UserMethods

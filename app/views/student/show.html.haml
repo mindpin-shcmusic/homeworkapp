@@ -28,6 +28,8 @@
         });
       %div{:id => "dropbox_#{h.id}"}
       %input{:id => "multiple_#{h.id}", :multiple => "", :type => "file", :name => "homework_student_upload[attachement]"}/
+      - homework_student_upload = HomeworkStudentUpload.find_current(current_user.id, h.id)
+      %a{:href => "#{homework_student_upload.attachement.url}"} 下载
     - else
       = '未提交'
       上传
@@ -40,9 +42,8 @@
         });
       %div{:id => "dropbox_#{h.id}"}
       %input{:id => "multiple_#{h.id}", :multiple => "", :type => "file", :name => "homework_student_upload[attachement]"}/
-  
     
-    下载
+    
 
 
 %div 作业内容

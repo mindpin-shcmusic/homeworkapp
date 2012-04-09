@@ -15,16 +15,18 @@
   - else
     = '已过期'
 
+%div 
+  提交物
+  = @homework.homework_teacher_attachements.count
+  - @homework.homework_teacher_attachements.each do |attachement|
+    = attachement.attachement_file_name
+  %div
+    %a{:href => "to_do"} Zip包全部下载
 
-- if @submitted_students.count > 0
-  %p 已交作业学生
-  %ul
-  - @submitted_students.each do |s|
-    %li= s.name
-    %p= s.homework_assigns.find_by_homework_id(@homework.id).content
-  
-  
-%p 未交作业学生
-%ul
-- @unsubmitted_students.each do |s|
-  %li= s.name
+
+%div
+  - @homework.homework_assigns.each do |h|
+    %p= h.creator.name
+    = h.creator.uploaded_count(@homework)
+    %span /
+    = @homework.homework_student_attachements.count

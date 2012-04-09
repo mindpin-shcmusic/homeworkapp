@@ -9,7 +9,7 @@ class HomeworkAssign < ActiveRecord::Base
   # --- 给其他类扩展的方法
   module UserMethods
     def self.included(base)
-      base.has_many :homework_assigns,:foreign_key=>"creator_id"
+      base.has_many :homework_assigns, :foreign_key=>"creator_id"
       
       # 学生所有被分配作业
       base.has_many :assigned_homeworks, :through => :homework_assigns, :source => :homework

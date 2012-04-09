@@ -17,7 +17,7 @@
   %a{:href => "to_do"} Zip包全部下载
 
 %div
-  - @homework.homework_student_attachements.each do |h|
+  - @homework.homework_student_upload_requirements.each do |h|
     %p= h.title
     - if current_user.is_upload_homework_attachement?(h)
       = '已提交'

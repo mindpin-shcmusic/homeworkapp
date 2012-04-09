@@ -30,7 +30,7 @@ class HomeworksController < ApplicationController
 
   def new
     @homework = Homework.new
-    @homework_student_attachement = HomeworkStudentAttachement.new
+    @homework_student_upload_requirement = HomeworkStudentUploadRequirement.new
     
     # 所有课程
     @courses = Course.all

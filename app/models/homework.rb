@@ -2,8 +2,8 @@ class Homework < ActiveRecord::Base
   # --- 模型关联
   belongs_to :creator, :class_name => 'User', :foreign_key => 'creator_id'
   has_many :homework_assigns
-  has_many :homework_student_attachements
-  accepts_nested_attributes_for :homework_student_attachements
+  has_many :homework_student_upload_requirements
+  accepts_nested_attributes_for :homework_student_upload_requirements
   
   # 未提交作业学生
   has_many :unsubmitted_students, :through => :homework_assigns, :source => :creator, :conditions => ['is_submit = ?', false]
@@ -12,7 +12,7 @@ class Homework < ActiveRecord::Base
   has_many :submitted_students, :through => :homework_assigns, :source => :creator, :conditions => ['is_submit = ?', true]
   
   # 学生附件
-  has_many :homework_student_attachements
+  has_many :homework_student_upload_requirements
   
   # 老师创建作业时上传的附件
   has_many :homework_teacher_attachements

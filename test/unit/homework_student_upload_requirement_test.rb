@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class HomeworkStudentAttachementTest < ActiveSupport::TestCase
+class HomeworkStudentUploadRequirementTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

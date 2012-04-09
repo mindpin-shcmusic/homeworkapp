@@ -1,4 +1,4 @@
-class HomeworkStudentAttachement < ActiveRecord::Base
+class HomeworkStudentUploadRequirement < ActiveRecord::Base
   belongs_to :creator, :class_name => 'User', :foreign_key => 'creator_id'
   belongs_to :homework
   has_many :homework_student_uploads, :class_name => 'HomeworkStudentUpload', :foreign_key => 'attachement_id'
@@ -9,7 +9,7 @@ class HomeworkStudentAttachement < ActiveRecord::Base
 
   module UserMethods
     def self.included(base)
-      base.has_many :homework_student_attachements, :foreign_key => 'creator_id'
+      base.has_many :homework_student_upload_requirements, :foreign_key => 'creator_id'
       base.send(:include,InstanceMethod)
     end
     

@@ -1,7 +1,7 @@
 class HomeworkStudentUpload < ActiveRecord::Base
   # --- 模型关联
   belongs_to :creator, :class_name => 'User', :foreign_key => 'creator_id'
-  belongs_to :homework_student_attachement, :class_name => 'HomeworkStudentAttachement', 
+  belongs_to :homework_student_upload_requirement, :class_name => 'HomeworkStudentUploadRequirement', 
              :foreign_key => 'attachement_id'
 
              
@@ -28,7 +28,7 @@ class HomeworkStudentUpload < ActiveRecord::Base
       # 参数 homework 是一个实例变量
       def uploaded_count(homework)
         count = 0
-        homework.homework_student_attachements.each do |attachement|
+        homework.homework_student_upload_requirements.each do |attachement|
           count += 1 if HomeworkStudentUpload.where(:creator_id => self.id, :attachement_id => attachement.id).exists?
         end
         return count

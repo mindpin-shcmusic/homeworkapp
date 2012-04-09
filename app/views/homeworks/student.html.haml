@@ -26,8 +26,9 @@
     %p
       = attachement.title
       - if @student.is_upload_homework_attachement?(attachement)
+        - current_upload = attachement.upload_of_user(@student)
         %span 已提交
-        %a{:href => "#{attachement}"} 下载
+        %a{:href => "#{current_upload.attachement.url}"} 下载
       - else
         %span 未提交
         

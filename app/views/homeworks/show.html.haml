@@ -31,7 +31,9 @@
 %div
   - @homework.homework_assigns.each do |h|
     - uploaded_count = h.user.uploaded_count(@homework)
-    %p= h.user.name
+    %p
+      %a{:href => "/homeworks/#{h.homework_id}/student/#{h.user.id}"} 
+        =h.user.name
     = uploaded_count
     %span /
     = student_attachements_count

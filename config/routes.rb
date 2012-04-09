@@ -8,6 +8,8 @@ Quora::Application.routes.draw do
     member do
     end
   end
+  # 老师查看某一学生作业路由
+  get 'homeworks/:homework_id/student/:user_id' => 'homeworks#student'
   
   resources :student do
     collection do

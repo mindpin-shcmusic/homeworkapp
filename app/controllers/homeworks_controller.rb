@@ -48,11 +48,19 @@ class HomeworksController < ApplicationController
       @homeworks = current_user.homeworks
     end
   end
-
+  
+  
   def show
     @homework = Homework.find(params[:id])
-    @unsubmitted_students = @homework.unsubmitted_students
-    @submitted_students = @homework.submitted_students
+    # @unsubmitted_students = @homework.unsubmitted_students
+    # @submitted_students = @homework.submitted_students
+  end
+  
+  
+  # 老师查看具体某一学生作业页面
+  def student
+    @homework = Homework.find(params[:homework_id])
+    @student = User.find(params[:user_id])
   end
 
 end

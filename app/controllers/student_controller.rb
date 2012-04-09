@@ -1,3 +1,4 @@
+require 'zip/zip'
 class StudentController < ApplicationController
   def index
     if params[:status] == 'deadline'

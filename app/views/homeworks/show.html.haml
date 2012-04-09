@@ -1,3 +1,6 @@
+:ruby
+  student_attachements_count = @homework.homework_student_attachements.count
+
 %p= link_to '作业列表', homeworks_path
 %p= link_to '布置新作业', new_homework_path
 
@@ -17,16 +20,28 @@
 
 %div 
   提交物
-  = @homework.homework_teacher_attachements.count
+  = student_attachements_count
   - @homework.homework_teacher_attachements.each do |attachement|
     = attachement.attachement_file_name
   %div
     %a{:href => "to_do"} Zip包全部下载
 
 
+
 %div
   - @homework.homework_assigns.each do |h|
+    - uploaded_count = h.creator.uploaded_count(@homework)
     %p= h.creator.name
-    = h.creator.uploaded_count(@homework)
+    = uploaded_count
     %span /
-    = @homework.homework_student_attachements.count
+    = student_attachements_count
+    
+    - if uploaded_count == student_attachements_count
+      %span 完成
+    - else
+      %span 未完成
+      
+    - if h.has_finished
+      %span 已签
+    - else 
+      %span 未签

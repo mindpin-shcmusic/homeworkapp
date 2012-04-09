@@ -10,22 +10,18 @@ class HomeworkStudentUpload < ActiveRecord::Base
                     :url => "/web/2012/:class/:attachment/:id/:style/:basename.:extension"
   
   
-  def self.find_current(creator_id, attachement_id)
-    HomeworkStudentUpload.where(:creator_id => creator_id, :attachement_id => attachement_id).first
-  end
            
   # --- 给其他类扩展的方法
   module UserMethods
     def self.included(base)
-      base.has_many :homework_student_uploads, :class_name => 'User', :foreign_key => 'creator_id'
+      base.has_many :homework_student_uploads, :class_name => 'HomeworkStudentUpload', :foreign_key => 'creator_id'
       base.send(:include, InstanceMethods)
     end
     
     module InstanceMethods
       # 学生是否提交作业附件
-      # attachement_id 附件表主键Id
-      def is_upload_homework_attachement(attachement_id)
-        HomeworkStudentUpload.where(:creator_id => self.id, :attachement_id => attachement_id).exists?
+      def is_upload_homework_attachement?(attachement)
+        self.homework_student_uploads.where(:attachement_id => attachement.id).exists?
       end
       
       # 学生上传作业提交物的数量

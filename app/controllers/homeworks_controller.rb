@@ -41,9 +41,9 @@ class HomeworksController < ApplicationController
 
   def index
     if params[:status] == 'deadline'
-      @homeworks = current_user.deadline_homeworks
+      @homeworks = current_user.deadline_teacher_homeworks
     elsif params[:status] == 'undeadline'
-      @homeworks = current_user.undeadline_homeworks
+      @homeworks = current_user.undeadline_teacher_homeworks
     else
       @homeworks = current_user.homeworks
     end
@@ -52,8 +52,6 @@ class HomeworksController < ApplicationController
   
   def show
     @homework = Homework.find(params[:id])
-    # @unsubmitted_students = @homework.unsubmitted_students
-    # @submitted_students = @homework.submitted_students
   end
   
   

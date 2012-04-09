@@ -25,9 +25,9 @@
   - @homework.homework_student_attachements.each do |attachement|
     %p
       = attachement.title
-      - if @student.is_upload_homework_attachement(attachement.id)
+      - if @student.is_upload_homework_attachement?(attachement)
         %span 已提交
-        %a{:href => ""} 下载
+        %a{:href => "#{attachement}"} 下载
       - else
         %span 未提交
         

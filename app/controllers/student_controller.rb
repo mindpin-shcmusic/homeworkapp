@@ -2,9 +2,9 @@ require 'zip/zip'
 class StudentController < ApplicationController
   def index
     if params[:status] == 'deadline'
-      @homeworks = current_user.deadline_homeworks
+      @homeworks = current_user.deadline_student_homeworks
     elsif params[:status] == 'undeadline'
-      @homeworks = current_user.undeadline_homeworks
+      @homeworks = current_user.undeadline_student_homeworks
     else
       @homeworks = current_user.assigned_homeworks
     end
@@ -59,7 +59,8 @@ class StudentController < ApplicationController
   
   # 学生重新上传作业附件
   def upload_homework_attachement_again
-    @homework_student_upload = HomeworkStudentUpload.find_current(current_user.id, params[:attachement_id])
+    homework_student_attachement = HomeworkStudentAttachement.find(params[:attachement_id])
+    @homework_student_upload = homework_student_attachement.upload_of_user(current_user)
     old_file = @homework_student_upload.attachement_file_name;
     @homework_student_upload.attachement = params[:homework_student_upload][:attachement]
     @homework_student_upload.save

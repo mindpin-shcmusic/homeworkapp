@@ -19,7 +19,7 @@
 %div
   - @homework.homework_student_attachements.each do |h|
     %p= h.title
-    - if current_user.is_upload_homework_attachement(h.id)
+    - if current_user.is_upload_homework_attachement?(h)
       = '已提交'
       再次上传
       :javascript
@@ -31,7 +31,7 @@
         });
       %div{:id => "dropbox_#{h.id}"}
       %input{:id => "multiple_#{h.id}", :multiple => "", :type => "file", :name => "homework_student_upload[attachement]"}/
-      - homework_student_upload = HomeworkStudentUpload.find_current(current_user.id, h.id)
+      - homework_student_upload = h.upload_of_user(current_user)
       %a{:href => "#{homework_student_upload.attachement.url}"} 下载
     - else
       = '未提交'

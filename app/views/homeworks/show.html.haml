@@ -30,7 +30,7 @@
 
 %div
   - @homework.homework_assigns.each do |h|
-    - uploaded_count = h.user.uploaded_count(@homework)
+    - uploaded_count = h.user.uploaded_count_of_student_homework(@homework)
     %p
       %a{:href => "/homeworks/#{h.homework_id}/student/#{h.user.id}"} 
         =h.user.name

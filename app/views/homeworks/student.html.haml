@@ -3,7 +3,7 @@
   student_attachements_count = @homework.homework_student_upload_requirements.count
   
   # 学生已经提交的附件数量
-  uploaded_count = @student.uploaded_count(@homework)
+  uploaded_count = @student.uploaded_count_of_student_homework(@homework)
   
   
 %div 作业标题

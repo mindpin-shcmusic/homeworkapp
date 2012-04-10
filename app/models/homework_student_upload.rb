@@ -26,7 +26,7 @@ class HomeworkStudentUpload < ActiveRecord::Base
       
       # 学生上传作业提交物的数量
       # 参数 homework 是一个实例变量
-      def uploaded_count(homework)
+      def uploaded_count_of_student_homework(homework)
         count = 0
         homework.homework_student_upload_requirements.each do |attachement|
           count += 1 if HomeworkStudentUpload.where(:creator_id => self.id, :attachement_id => attachement.id).exists?

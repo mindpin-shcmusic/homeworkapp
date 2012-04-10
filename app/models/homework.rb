@@ -40,8 +40,14 @@ class Homework < ActiveRecord::Base
   end
   
   # 压缩学生提交的附件
-  def build_student_attachements_zip(user)
-
+  def build_student_attachements_zip(user, homework_student_upload, old_file = '')
+    # homework_id = homework_student_upload.homework_student_upload_requirement.homework.id
+    homework_id = self.id
+    zipfile_name = "/web/2012/homework_student_uploads/homework_student#{user.id}_#{homework_id}.zip"
+    Zip::ZipFile.open(zipfile_name, Zip::ZipFile::CREATE) do |zipfile|
+      zipfile.remove(old_file) if zipfile.find_entry(old_file) && old_file != ''
+      zipfile.add(homework_student_upload.attachement_file_name, homework_student_upload.attachement.path)
+    end
   end
   
   # 学生提交作业

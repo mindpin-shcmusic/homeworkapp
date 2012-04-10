@@ -36,10 +36,8 @@ class StudentController < ApplicationController
 
     # 当前作业ID, 用于生成 zip 文件名
     homework_id = @homework_student_upload.homework_student_upload_requirement.homework.id
-    zipfile_name = "/web/2012/homework_student_uploads/homework_student#{current_user.id}_#{homework_id}.zip"
-    Zip::ZipFile.open(zipfile_name, Zip::ZipFile::CREATE) do |zipfile|
-      zipfile.add(@homework_student_upload.attachement_file_name, @homework_student_upload.attachement.path)
-    end
+    homework = Homework.find(homework_id)
+    homework.build_student_attachements_zip(current_user, @homework_student_upload)
     
     render :nothing => true
   end
@@ -54,11 +52,8 @@ class StudentController < ApplicationController
     
     # 当前作业ID, 用于生成 zip 文件名
     homework_id = @homework_student_upload.homework_student_upload_requirement.homework.id
-    zipfile_name = "/web/2012/homework_student_uploads/homework_student#{current_user.id}_#{homework_id}.zip"
-    Zip::ZipFile.open(zipfile_name, Zip::ZipFile::CREATE) do |zipfile|
-      zipfile.remove(old_file) if zipfile.find_entry(old_file)
-      zipfile.add(@homework_student_upload.attachement_file_name, @homework_student_upload.attachement.path)
-    end
+    homework = Homework.find(homework_id)
+    homework.build_student_attachements_zip(current_user, @homework_student_upload, old_file)
     
     render :nothing => true
   end

@@ -6,8 +6,10 @@ Quora::Application.routes.draw do
     end
     
     member do
+      get :download_teacher_zip
     end
   end
+  get 'homeworks/:id/:download_teacher_zip' => 'homeworks#download_teacher_zip'
   # 老师查看某一学生作业路由
   get 'homeworks/:homework_id/student/:user_id' => 'homeworks#student'
   

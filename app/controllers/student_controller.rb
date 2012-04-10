@@ -15,9 +15,7 @@ class StudentController < ApplicationController
     @homework = Homework.find(params[:id])
     @student_homework = current_user.homework_assigns.find_by_homework_id(params[:id])
     @homework_assign = HomeworkAssign.new
-    
-    # 生成老师上传的附件压缩包
-    @homework.build_teacher_attachements_zip(current_user)
+
   end
 
   def create

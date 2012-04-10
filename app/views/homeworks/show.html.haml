@@ -24,7 +24,7 @@
   - @homework.homework_teacher_attachements.each do |attachement|
     = attachement.attachement_file_name
   %div
-    %a{:href => "to_do"} Zip包全部下载
+    %a{:href => "/homeworks/#{@homework.id}/download_teacher_zip"} Zip包全部下载
 
 
 

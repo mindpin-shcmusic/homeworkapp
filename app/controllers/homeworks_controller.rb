@@ -60,5 +60,14 @@ class HomeworksController < ApplicationController
     @homework = Homework.find(params[:homework_id])
     @student = User.find(params[:user_id])
   end
+  
+  def download_teacher_zip
+    homework = Homework.find(params[:id])
+    
+    # 生成老师上传的附件压缩包
+    homework.build_teacher_attachements_zip(homework.creator)
+    
+    render :file => "/web/2012/homework_teacher_attachements/homework_teacher#{homework.creator.id}_#{homework.id}.zip", :content_type => 'application/zip', :status => :ok
+  end
 
 end

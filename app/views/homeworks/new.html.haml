@@ -12,6 +12,11 @@
       jQuery("#dropbox, .multiple").html5Uploader({
         name: "homework_teacher_attachement[attachement]",
         postUrl: '/homeworks/create_teacher_attachement',
+        onSuccess: function(e, file, data){
+          // console.log(data);
+          var attachements = '<input type="text" name="teacher_attachements[]" value="' + data + '" value="">';
+          $('#teacher-attachements').append(attachements);
+        }
       });
     })
 
@@ -104,6 +109,7 @@
   
   %p 
     老师作业附件
+    #teacher-attachements{:style => "display: none;"}
     %a#add-teacher-attachement-field{:href => "javascript:"} 添加+
     #dropbox
     %div{:id => "teacher-attachement-fields"}

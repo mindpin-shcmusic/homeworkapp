@@ -9,10 +9,13 @@ class HomeworksController < ApplicationController
   def create
     @homework = current_user.homeworks.build(params[:homework])
     if @homework.save
-      homework_teacher_attachement = HomeworkTeacherAttachement.find(session[:attachement_id])
-      homework_teacher_attachement.homework_id = @homework.id
-      homework_teacher_attachement.creator_id = current_user.id
-      homework_teacher_attachement.save
+      teacher_attachements = params[:teacher_attachements]
+      teacher_attachements.each do |attachement_id|
+        homework_teacher_attachement = HomeworkTeacherAttachement.find(attachement_id)
+        homework_teacher_attachement.homework_id = @homework.id
+        homework_teacher_attachement.creator_id = current_user.id
+        homework_teacher_attachement.save
+      end
       return redirect_to @homework
     end
     
@@ -23,7 +26,7 @@ class HomeworksController < ApplicationController
   
   def create_teacher_attachement
     @homework_teacher_attachement = HomeworkTeacherAttachement.create( params[:homework_teacher_attachement] )
-    session[:attachement_id] = @homework_teacher_attachement.id
+    # session[:attachement_id] = @homework_teacher_attachement.id
     render :text => @homework_teacher_attachement.id
   end
   

@@ -6,22 +6,39 @@
     });
   });
   
+  
   function del_student(id) {
     $('#del-a-' + id).remove();
   }
   
+  
   jQuery(document).ready(function(){
+    // 添加学生附件表单列表
+    jQuery('#add-attachement-field').click(function(){
+      var attachement_field = "<input type='text' size='30' name='homework[homework_student_upload_requirements_attributes][][title]'>";
+      var del_field = "<a href='javascript:void(0);' class='del-attachement-field'>x</a>";
+      $('#attachement-fields').append("<p>" + attachement_field + del_field + "</p>");
+    })
+    
+    // 删除学生附件表单
+    jQuery('.del-attachement-field').click(function(){
+      $(this).parent().remove();
+    })
+    
+    
+    // 主要用于重新显示学生列表
     jQuery('#show-students').click(function(){
-      
-      
+
       $('#student-list').show();
       
+      // 重新显示学生列表时，只显示没被勾选的
       $('#student-list input:checked').each(function() {
         var value = $(this).attr('value');
         $('#student-current-' + value).remove();
       });
     })
     
+    // 确定选择的学生列表
     jQuery('#confirm-students').click(function(){
       $('#student-list').hide();
       var selected = new Array();
@@ -81,11 +98,16 @@
   
   %div
     作业提交物
-    %p
-      %input{:type=>'text', :size=>30, :name=>'homework[homework_student_upload_requirements_attributes][][title]'}
-    %p
-      %input{:type=>'text', :size=>30, :name=>'homework[homework_student_upload_requirements_attributes][][title]'}
-  
+    %a#add-attachement-field{:href => "javascript:"} 添加+
+    
+    %div{:id => "attachement-fields"}
+      %p
+        %input{:type=>'text', :size=>30, :name=>'homework[homework_student_upload_requirements_attributes][][title]'}
+        %a.del-attachement-field{:href => "javascript:void(0);"} x
+      %p
+        %input{:type=>'text', :size=>30, :name=>'homework[homework_student_upload_requirements_attributes][][title]'}
+        %a.del-attachement-field{:href => "javascript:void(0);"} x
+    
   = f.submit "布置作业"
   
 

@@ -16,19 +16,19 @@
     // 添加学生附件表单列表
     jQuery('#add-attachement-field').click(function(){
       var attachement_field = "<input type='text' size='30' name='homework[homework_student_upload_requirements_attributes][][title]'>";
-      var del_field = "<a href='javascript:void(0);' class='del-attachement-field'>x</a>";
+      var del_field = "<a href='javascript:void(0);' class='delete'>x</a>";
       $('#attachement-fields').append("<p>" + attachement_field + del_field + "</p>");
     })
     
     // 删除学生附件表单
-    jQuery('.del-attachement-field').click(function(){
+    jQuery('a.delete').live('click', function(){
       $(this).parent().remove();
     })
-    
+
     
     // 主要用于重新显示学生列表
     jQuery('#show-students').click(function(){
-
+      // 先把学生列表显示出来
       $('#student-list').show();
       
       // 重新显示学生列表时，只显示没被勾选的
@@ -103,10 +103,10 @@
     %div{:id => "attachement-fields"}
       %p
         %input{:type=>'text', :size=>30, :name=>'homework[homework_student_upload_requirements_attributes][][title]'}
-        %a.del-attachement-field{:href => "javascript:void(0);"} x
+        %a.delete{:href => "javascript:void(0);"} x
       %p
         %input{:type=>'text', :size=>30, :name=>'homework[homework_student_upload_requirements_attributes][][title]'}
-        %a.del-attachement-field{:href => "javascript:void(0);"} x
+        %a.delete{:href => "javascript:void(0);"} x
     
   = f.submit "布置作业"
   

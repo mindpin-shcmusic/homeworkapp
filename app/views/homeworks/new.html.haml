@@ -1,28 +1,38 @@
 :javascript
-  $(function() {
-    $("#dropbox, #multiple").html5Uploader({
-      name: "homework_teacher_attachement[attachement]",
-      postUrl: '/homeworks/create_teacher_attachement',
-    });
-  });
-  
-  
+  // 删除学生标签
   function del_student(id) {
     $('#del-a-' + id).remove();
   }
   
   
   jQuery(document).ready(function(){
-    // 添加学生附件表单列表
-    jQuery('#add-attachement-field').click(function(){
+  
+    // 上传老师附件
+    jQuery('.multiple').live('click', function(){
+      jQuery("#dropbox, .multiple").html5Uploader({
+        name: "homework_teacher_attachement[attachement]",
+        postUrl: '/homeworks/create_teacher_attachement',
+      });
+    })
+
+    
+    // 添加学生附件表单
+    jQuery('#add-student-attachement-field').click(function(){
       var attachement_field = "<input type='text' size='30' name='homework[homework_student_upload_requirements_attributes][][title]'>";
       var del_field = "<a href='javascript:void(0);' class='delete'>x</a>";
-      $('#attachement-fields').append("<p>" + attachement_field + del_field + "</p>");
+      $('#student-attachement-fields').append("<p>" + attachement_field + del_field + "</p>");
     })
     
-    // 删除学生附件表单
+    // 删除表单
     jQuery('a.delete').live('click', function(){
       $(this).parent().remove();
+    })
+    
+    // 添加老师附件表单
+    jQuery('#add-teacher-attachement-field').click(function(){
+      var attachement_field = '<input type="file" name="homework_teacher_attachement[attachement]" multiple="" class="multiple">';
+      var del_field = "<a href='javascript:void(0);' class='delete'>x</a>";
+      $('#teacher-attachement-fields').append("<p>" + attachement_field + del_field + "</p>");
     })
 
     
@@ -92,15 +102,18 @@
   #selected-students
   
   
-  %p 作业附件
-  #dropbox
-  %input#multiple{:multiple => "", :type => "file", :name => "homework_teacher_attachement[attachement]"}/
-  
-  %div
-    作业提交物
-    %a#add-attachement-field{:href => "javascript:"} 添加+
+  %p 
+    老师作业附件
+    %a#add-teacher-attachement-field{:href => "javascript:"} 添加+
+    #dropbox
+    %div{:id => "teacher-attachement-fields"}
+      %input.multiple{:multiple => "", :type => "file", :name => "homework_teacher_attachement[attachement]"}/
     
-    %div{:id => "attachement-fields"}
+  %div
+    学生作业提交物
+    %a#add-student-attachement-field{:href => "javascript:"} 添加+
+    
+    %div{:id => "student-attachement-fields"}
       %p
         %input{:type=>'text', :size=>30, :name=>'homework[homework_student_upload_requirements_attributes][][title]'}
         %a.delete{:href => "javascript:void(0);"} x

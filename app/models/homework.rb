@@ -26,6 +26,11 @@ class Homework < ActiveRecord::Base
     self.homework_assigns.where(:creator_id => user.id).first
   end
   
+  # 学生是否被分配
+  def is_assigned(creator_id)
+    self.homework_assigns.where(:creator_id => creator_id).exists?
+  end
+  
   
   # 老师创建作业时生成的附件压缩包
   def build_teacher_attachements_zip(user)

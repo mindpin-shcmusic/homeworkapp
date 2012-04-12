@@ -6,6 +6,8 @@ class HomeworkAssign < ActiveRecord::Base
   # --- 校验方法
   #validates :creator, :presence => true
   
+  
+  
   # --- 给其他类扩展的方法
   module UserMethods
     def self.included(base)

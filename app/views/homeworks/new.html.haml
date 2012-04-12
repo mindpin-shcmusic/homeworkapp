@@ -98,6 +98,8 @@
           
           // 用于临时存放，如果删除班级标签时，可以随时拿出来
           $('#team-temp-list').append('<div>' + $("#team-current-" + value).html() + '</div>');
+          
+          $('#team-current-' + value).remove();
       });
       
     })
@@ -110,13 +112,7 @@
       
       // 显示学生列表
       $('#student-list').show();
-      
-      // 重新显示学生列表时，只显示没被勾选的
-      $('#student-list input:checked').each(function() {
-        var value = $(this).attr('value');
-        
-        $('#student-current-' + value).remove();
-      });
+
     })
 
     
@@ -130,13 +126,7 @@
       
       // 把分类显示出来
       $('#category-by').show();
-      
-      // 重新显示学生列表时，只显示没被勾选的
-      $('#student-list input:checked').each(function() {
-        var value = $(this).attr('value');
-        
-        $('#student-current-' + value).remove();
-      });
+     
     })
     
     // 确定选择的学生列表
@@ -157,6 +147,8 @@
           
           // 用于临时存放，如果删除学生标签时，可以随时拿出来
           $('#student-temp-list').append('<div>' + $("#student-current-" + value).html() + '</div>');
+          
+          $('#student-current-' + value).remove();
       });
     })
 

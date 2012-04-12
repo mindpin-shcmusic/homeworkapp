@@ -1,7 +1,28 @@
 :javascript
+  // 删除班级标签
+  function del_team(id) {
+    $('#del-a-team' + id).remove();
+    
+    // 把临时列表保存的插入到班级列表之前
+    var team = $('#team-temp-list').html();
+    team = team.replace('<div>', '<div id="team-current-' + id + '">');
+    $('#confirm-teams').before(team);
+    
+    // 清空临时班级列表
+    $('#team-temp-list').html('');
+  }
+  
   // 删除学生标签
   function del_student(id) {
-    $('#del-a-' + id).remove();
+    $('#del-a-student' + id).remove();
+    
+    // 把临时列表保存的插入到班级列表之前
+    var student = $('#student-temp-list').html();
+    student = student.replace('<div>', '<div id="student-current-' + id + '">');
+    $('#confirm-students').before(student);
+    
+    // 清空临时班级列表
+    $('#student-temp-list').html('');
   }
   
   
@@ -39,16 +60,81 @@
       var del_field = "<a href='javascript:void(0);' class='delete'>x</a>";
       $('#teacher-attachement-fields').append("<p>" + attachement_field + del_field + "</p>");
     })
-
     
-    // 主要用于重新显示学生列表
-    jQuery('#show-students').click(function(){
-      // 先把学生列表显示出来
+    // 班级列表
+    jQuery('#team-by').click(function(){
+      // 显示班级列表
+      $('#team-list').show();
+      
+      // 隐藏学生列表
+      $('#student-list').hide();
+      
+      // 重新显示班级列表时，只显示没被勾选的
+      $('#team-list input:checked').each(function() {
+        var value = $(this).attr('value');
+        
+        // 删除
+        $('#team-current-' + value).remove();
+        
+      });
+    })
+    
+    
+    // 确定选择的班级列表
+    jQuery('#confirm-teams').click(function(){
+      $('#team-list').hide();
+      var selected = new Array();
+      $('#team-list input:checked').each(function() {
+ 
+          var value = $(this).attr('value');
+          var name = $(this).attr('name');
+          
+          if($("#del-a-team" + value).length == 0) {
+            var delete_name = "<a href='javascript:' onclick='del_team(" + value + ")'>x</a>";
+            var input_string = "<span id='del-a-team" + value + "'>" + name + delete_name + 
+                               "<input type='hidden' value='" + value + "' name='teams[]' /></span>";
+            $('#selected-teams').append(input_string);
+          }
+          
+          // 用于临时存放，如果删除班级标签时，可以随时拿出来
+          $('#team-temp-list').append('<div>' + $("#team-current-" + value).html() + '</div>');
+      });
+      
+    })
+    
+    
+    // 学生列表
+    jQuery('#student-by').click(function(){
+      // 隐藏班级列表
+      $('#team-list').hide();
+      
+      // 显示学生列表
       $('#student-list').show();
       
       // 重新显示学生列表时，只显示没被勾选的
       $('#student-list input:checked').each(function() {
         var value = $(this).attr('value');
+        
+        $('#student-current-' + value).remove();
+      });
+    })
+
+    
+    // 主要用于重新显示学生列表
+    jQuery('#show-students').click(function(){
+      // 先隐藏班级
+      $('#team-list').hide();
+      
+      // 学生列表显示出来
+      $('#student-list').show();
+      
+      // 把分类显示出来
+      $('#category-by').show();
+      
+      // 重新显示学生列表时，只显示没被勾选的
+      $('#student-list input:checked').each(function() {
+        var value = $(this).attr('value');
+        
         $('#student-current-' + value).remove();
       });
     })
@@ -63,11 +149,14 @@
           var value = $(this).attr('value');
           var name = $(this).attr('name');
           
-          if($("#del-a-" + value).length == 0) {
+          if($("#del-a-student" + value).length == 0) {
             var delete_name = "<a href='javascript:' onclick='del_student(" + value + ")'>x</a>";
-            var input_string = "<span id='del-a-" + value + "'>" + name + delete_name + "<input type='hidden' value='" + value + "' name='homework[homework_assigns_attributes][][creator_id]' /></span>";
+            var input_string = "<span id='del-a-student" + value + "'>" + name + delete_name + "<input type='hidden' value='" + value + "' name='homework[homework_assigns_attributes][][creator_id]' /></span>";
             $('#selected-students').append(input_string);
           }
+          
+          // 用于临时存放，如果删除学生标签时，可以随时拿出来
+          $('#student-temp-list').append('<div>' + $("#student-current-" + value).html() + '</div>');
       });
     })
 
@@ -96,6 +185,24 @@
     选择分配学生
     %a#show-students{:href => "javascript:void(0);"} +
   
+  %p
+    #selected-teams
+    #selected-students 
+  
+  %p#category-by{:style => "display: none;"}
+    %span#team-by 按班级 
+    %span#student-by 按学生
+  
+  #team-temp-list{:style => "display: none;"}
+  #team-list{:style => "display: none;"}
+    -@teams.each do |team|
+      %div{:id => "team-current-#{team.id}"}
+        %input{:type=>'checkbox', :value => "#{team.id}", :name=>"#{team.name}"} 
+        #{team.name} (#{team.team_students.count})
+        
+    %input#confirm-teams{:name => "confirm_btn", :type => "button", :value => "确定"}/
+  
+  #student-temp-list{:style => "display: none;"}
   #student-list{:style => "display: none;"}
     -@students.each do |student|
       %div{:id => "student-current-#{student.user_id}"}
@@ -104,7 +211,6 @@
     
     %input#confirm-students{:name => "confirm_btn", :type => "button", :value => "确定"}/
   
-  #selected-students
   
   
   %p 

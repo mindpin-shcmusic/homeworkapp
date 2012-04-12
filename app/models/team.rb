@@ -8,5 +8,5 @@ class Team < ActiveRecord::Base
   validates :name, :presence => true
   validates :cid, :uniqueness => { :if => Proc.new { |team| !team.cid.blank? } }
   
-  include TeamStatusLink::TeamMethods
+  # include TeamStatusLink::TeamMethods
 end

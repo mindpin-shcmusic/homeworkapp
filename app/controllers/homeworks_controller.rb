@@ -38,6 +38,9 @@ class HomeworksController < ApplicationController
     # 所有课程
     @courses = Course.all
     
+    # 班级列表
+    @teams = Team.all
+    
     # 学生列表
     @students = Student.all
   end

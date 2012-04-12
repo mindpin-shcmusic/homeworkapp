@@ -69,14 +69,6 @@
       // 隐藏学生列表
       $('#student-list').hide();
       
-      // 重新显示班级列表时，只显示没被勾选的
-      $('#team-list input:checked').each(function() {
-        var value = $(this).attr('value');
-        
-        // 删除
-        $('#team-current-' + value).remove();
-        
-      });
     })
     
     
